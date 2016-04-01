@@ -2,6 +2,7 @@ package com.BorisV.java;
 
 
 import java.util.Date;
+import java.util.LinkedList;
 
 public class Ticket implements Comparable<Ticket>{
     private int priority;
@@ -67,7 +68,7 @@ public class Ticket implements Comparable<Ticket>{
 
 
     public int compareTo(Ticket priorities) {
-        int comparePriority = ((Ticket) priorities).getPriority();
+        int comparePriority = priorities.getPriority();
         //ascending order
         return priority - comparePriority;
     }
@@ -77,6 +78,18 @@ public class Ticket implements Comparable<Ticket>{
         return("ID= " + this.ticketID + " Issued: " + this.description + " Priority: " + this.priority + " Reported by: "
                 + this.reporter + " Reported on: " + this.dateReported);
     }
+
+    public static void printAllTickets(LinkedList<Ticket> tickets) {
+        System.out.println(" ------- All open tickets ----------");
+
+        for (Ticket t : tickets ) {
+            System.out.println(t); //Write a toString method in Ticket class
+            //println will try to call toString on its argument
+        }
+        System.out.println(" ------- End of ticket list ----------");
+
+    }
+
 }
 
 
