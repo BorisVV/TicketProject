@@ -75,8 +75,9 @@ public class Ticket implements Comparable<Ticket>{
 
 
     public String toString(){
-        return("ID= " + this.ticketID + " Issued: " + this.description + " Priority: " + this.priority + " Reported by: "
-                + this.reporter + " Reported on: " + this.dateReported);
+        return("ID = " + this.ticketID + "\t Issue: " + this.description + "    \t Priority: "
+                + this.priority + "     \t Reported by: "
+                + this.reporter + "    \t Reported on: " + this.dateReported);
     }
 
     public static void printAllTickets(LinkedList<Ticket> tickets) {
@@ -85,6 +86,9 @@ public class Ticket implements Comparable<Ticket>{
         for (Ticket t : tickets ) {
             System.out.println(t); //Write a toString method in Ticket class
             //println will try to call toString on its argument
+        }
+        if (tickets.size() == 0) {
+            System.out.println("  >>EMPTY<<");
         }
         System.out.println(" ------- End of ticket list ----------");
 

@@ -17,19 +17,23 @@ public class DeleteByIssue {
         try {
             String deleteByIssue;
             Scanner issueScan = new Scanner(System.in);
-            System.out.println("Enter the description of ticket to delete");
+            System.out.println("Enter the issue of ticket to delete");
             deleteByIssue = issueScan.nextLine();
-
-            System.out.println();
 
             //Loop over all tickets. Delete the one with this ticket ID
             boolean found = false;
             for (Ticket ticket : ticketQueue) {
+                while (!deleteByIssue.equals(ticket.getDescription()))
+                {
+                    Ticket.printAllTickets(ticketQueue);
+                    System.out.println("Invalid entry, check spelling");
+                    deleteByIssue = issueScan.nextLine();
+                }
                 if (ticket.getDescription().equalsIgnoreCase(deleteByIssue))  {
                     found = true;
                     ticketQueue.remove(ticket);
 
-                    System.out.println("Ticket with the " + deleteByIssue + " issue was deleted");
+                    System.out.println("Ticket with the >" + deleteByIssue + "< issue was deleted");
                     break; //don't need loop any more.
                 }
 //                } else if (ticket.getTicketID() != deleteID) System.out.println("Ticket not found");

@@ -17,13 +17,18 @@ public class DeleteByID {
             Scanner deleteScanner = new Scanner(System.in);
             System.out.println("Enter ID of ticket to delete");
             deleteID = deleteScanner.nextInt();
-
             System.out.println();
 
             //Loop over all tickets. Delete the one with this ticket ID
             boolean found = false;
             for (Ticket ticket : ticketQueue) {
                 if (ticket.getTicketID() == deleteID) {
+                    while (ticket.getTicketID() != deleteID) {
+                        Ticket.printAllTickets(ticketQueue);
+                        System.out.println("Invalid entry, check spelling");
+                        deleteID = deleteScanner.nextInt();
+                    }
+
                     found = true;
                     ticketQueue.remove(ticket);
                     System.out.println(String.format("Ticket %d deleted", deleteID));

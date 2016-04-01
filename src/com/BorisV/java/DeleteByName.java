@@ -24,6 +24,11 @@ public class DeleteByName  {
             boolean found = false;
             for (Ticket ticket : ticketQueue) {
                 if (ticket.getReporter().equalsIgnoreCase(deleteByName)) {
+                    while (!ticket.getReporter().equalsIgnoreCase(deleteByName)) {
+                        Ticket.printAllTickets(ticketQueue);
+                        System.out.println("Invalid entry, check spelling");
+                        deleteByName = nameScan.nextLine();
+                    }
                     found = true;
                     ticketQueue.remove(ticket);
                     System.out.println("Ticket reported by " + deleteByName + " was deleted");
