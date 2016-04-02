@@ -26,8 +26,11 @@ public class DeleteByIssue {
                 while (!deleteByIssue.equals(ticket.getDescription()))
                 {
                     Ticket.printAllTickets(ticketQueue);
-                    System.out.println("Invalid entry, check spelling");
+                    System.out.println("Invalid entry, check spelling or enter 'q' to quit");
                     deleteByIssue = issueScan.nextLine();
+                    if (deleteByIssue.equalsIgnoreCase("q")) {
+                        break;
+                    }
                 }
                 if (ticket.getDescription().equalsIgnoreCase(deleteByIssue))  {
                     found = true;

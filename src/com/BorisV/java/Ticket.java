@@ -70,14 +70,19 @@ public class Ticket implements Comparable<Ticket>{
     public int compareTo(Ticket priorities) {
         int comparePriority = priorities.getPriority();
         //ascending order
-        return priority - comparePriority;
+//        return priority - comparePriority;
+
+        //descending order
+        return comparePriority - priority;
     }
 
 
+
+
     public String toString(){
-        return("ID = " + this.ticketID + "\t Issue: " + this.description + "    \t Priority: "
-                + this.priority + "     \t Reported by: "
-                + this.reporter + "    \t Reported on: " + this.dateReported);
+        return("ID = " + this.ticketID + "  Issue: " + this.description + "  Priority: "
+                + this.priority + "  Reported by: "
+                + this.reporter + "  Reported on: " + this.dateReported);
     }
 
     public static void printAllTickets(LinkedList<Ticket> tickets) {

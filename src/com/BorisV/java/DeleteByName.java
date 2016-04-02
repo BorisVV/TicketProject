@@ -18,17 +18,18 @@ public class DeleteByName  {
             System.out.println("Enter the name/reporter of ticket to delete");
             deleteByName = nameScan.nextLine();
 
-            System.out.println();
-
             //Loop over all tickets. Delete the one with this ticket ID
             boolean found = false;
             for (Ticket ticket : ticketQueue) {
-                if (ticket.getReporter().equalsIgnoreCase(deleteByName)) {
-                    while (!ticket.getReporter().equalsIgnoreCase(deleteByName)) {
+                    while (!deleteByName.equalsIgnoreCase(ticket.getReporter())) {
                         Ticket.printAllTickets(ticketQueue);
-                        System.out.println("Invalid entry, check spelling");
+                        System.out.println("Invalid entry, check spelling or enter 'q' to quit");
                         deleteByName = nameScan.nextLine();
+                        if (deleteByName.equalsIgnoreCase("q")) {
+                            break;
+                        }
                     }
+                if (ticket.getReporter().equalsIgnoreCase(deleteByName)) {
                     found = true;
                     ticketQueue.remove(ticket);
                     System.out.println("Ticket reported by " + deleteByName + " was deleted");

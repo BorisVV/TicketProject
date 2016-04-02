@@ -22,12 +22,15 @@ public class DeleteByID {
             //Loop over all tickets. Delete the one with this ticket ID
             boolean found = false;
             for (Ticket ticket : ticketQueue) {
-                if (ticket.getTicketID() == deleteID) {
-                    while (ticket.getTicketID() != deleteID) {
+                    while (deleteID != ticket.getTicketID()) {
                         Ticket.printAllTickets(ticketQueue);
-                        System.out.println("Invalid entry, check spelling");
+                        System.out.println("Invalid number, or enter 'q' to quit");
                         deleteID = deleteScanner.nextInt();
+                        if (Integer.toString(deleteID).equalsIgnoreCase("q")) {
+                            break;
+                        }
                     }
+                if (ticket.getTicketID() == deleteID) {
 
                     found = true;
                     ticketQueue.remove(ticket);

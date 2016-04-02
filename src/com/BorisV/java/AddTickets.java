@@ -27,13 +27,11 @@ public class AddTickets {
             Ticket t = new Ticket(description, priority, reporter, dateReported);
             ticketQueue.add(t);
 
-
-
 //            Collections.sort(ticketQueue);   //This code make the list in order by priority
             //To test, let's print out all of the currently stored tickets
 //            Ticket.printAllTickets(ticketQueue);
 
-            System.out.println("More tickets to add?");
+            System.out.println("More tickets to add? (y/n)");
             String more = sc.nextLine();
             if (more.equalsIgnoreCase("N")) {
                 moreProblems = false;
