@@ -37,6 +37,7 @@ public class AddTickets {
                 moreProblems = false;
             }
         }
+        Ticket.printAllTickets(ticketQueue);
 
     }
 

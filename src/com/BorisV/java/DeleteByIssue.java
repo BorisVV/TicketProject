@@ -1,6 +1,7 @@
 package com.BorisV.java;
 
 
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -26,12 +27,17 @@ public class DeleteByIssue {
                 while (!deleteByIssue.equals(ticket.getDescription()))
                 {
                     Ticket.printAllTickets(ticketQueue);
-                    System.out.println("Invalid entry, check spelling or enter 'q' to quit");
+                    System.out.println("Invalid entry, check spelling or enter 'q' to return to main menu");
                     deleteByIssue = issueScan.nextLine();
                     if (deleteByIssue.equalsIgnoreCase("q")) {
                         break;
                     }
                 }
+                Ticket resolved = ticket;
+                resolved.setDateOfResolution(new Date());
+                TicketManager.resolvedTicket.add(resolved);
+                System.out.println("Ticket added to resolved list\n" + ticket);
+
                 if (ticket.getDescription().equalsIgnoreCase(deleteByIssue))  {
                     found = true;
                     ticketQueue.remove(ticket);

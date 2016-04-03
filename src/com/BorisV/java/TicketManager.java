@@ -3,53 +3,69 @@ package com.BorisV.java;
 
 import java.util.*;
 
-public class TicketManager{
+public class TicketManager {
+
+    protected static LinkedList<Ticket> allOpenTickets;
+    protected static LinkedList<Ticket> resolvedTicket;
+    protected static Scanner scan;
 
     public static void main(String[] args) {
 
+        allOpenTickets = new LinkedList<>();
+        resolvedTicket = new LinkedList<>();
+        scan = new Scanner(System.in);
 
-        LinkedList<Ticket> ticketQueue = new LinkedList<>();
-        Scanner scan = new Scanner(System.in);
-
-        while(true){
+        boolean quit = false;
+        while (!quit) {
             try {
-                System.out.println("1. Enter Ticket\n2. Delete TicketByID\n3. Delete TicketByIssue\n4. Delete TicketByName\n5. Display All Tickets\n6. Quit");
-                int task = Integer.parseInt(scan.nextLine());
+                StringBuilder sb = new StringBuilder();
+                sb.append("------Main menu------\n" +
+                        "1. Enter Ticket\n" +
+                        "2. Delete TicketByID\n" +
+                        "3. Delete TicketByIssue\n" +
+                        "4. Delete TicketByName\n" +
+                        "5. Display All Open Tickets\n" +
+                        "6. Display All Resolved Tickets\n" +
+                        "7. Quit");
+                System.out.println(sb);
+
+                int task = getPositiveIntInput(sb);
 
                 if (task == 1) {
                     //Call addTickets, which will let us enter any number of new tickets
-                    AddTickets.addTickets(ticketQueue);
+                    AddTickets.addTickets(allOpenTickets);
                 } else if (task == 2) {
                     //delete a ticket
-                    DeleteByID.deleteByID(ticketQueue);
+                    DeleteByID.deleteByID(allOpenTickets);
+
                 } else if (task == 3) {
                     //delete a ticket
-                    DeleteByIssue.deleteByIssue(ticketQueue);
+                    DeleteByIssue.deleteByIssue(allOpenTickets);
                 } else if (task == 4) {
                     //delete a ticket
-                   DeleteByName.deleteByName(ticketQueue);
+                    DeleteByName.deleteByName(allOpenTickets);
                 } else if (task == 5) {
-                    //delete a ticket
+                    //Display all open tickets
 
-                    Collections.sort(ticketQueue);
-                    Ticket.printAllTickets(ticketQueue);
-
+                    Collections.sort(allOpenTickets);
+                    Ticket.printAllTickets(allOpenTickets);
                 } else if (task == 6) {
+                    TicketManager.printResolvedTickets(resolvedTicket);
+
+                } else if (task == 7) {
                     //Quit. Future prototype may want to save all tickets to a file
+                    quit = true;
                     System.out.println("Quitting program");
                     break;
-                } else {
-                    System.out.println("Invalid number, enter a 1 trough 6 number");
-                    //this will happen for 3 or any other selection that is a valid int
-                    //TODO --DONE-- Program crashes if you enter anything else - please fix
-                    //I added or created a try and catch with a NumberFormatException to catch the error....
-                    //Default will be print all tickets
-                    Ticket.printAllTickets(ticketQueue);
                 }
-            } catch (NumberFormatException ne) {
-                System.out.println("Invalid entry, enter a numerical number\n");
-                //This is the new block, the try and catch method.!!!!
+                //this will happen for 3 or any other selection that is a valid int
+                //TODO --DONE-- Program crashes if you enter anything else - please fix
+                //I added or created a try and catch with a NumberFormatException to catch the error....
+                //Default will be print all tickets
                 //TODO code was added here.!!!
+            } catch (NumberFormatException ne) {
+                System.out.println("\nInvalid entry, enter a numerical number");
+                //This is the new block, the try and catch method.!!!!
             }
         }
 
@@ -57,12 +73,49 @@ public class TicketManager{
 
     }
 
-    //Move the adding ticket code to a method
+    private static int getPositiveIntInput(StringBuilder b) {
+        while (true) {
+            try {
+                String stringInput = scan.nextLine();
+                int intInput = Integer.parseInt(stringInput);
+                if (intInput >= 0 || intInput <= 7) {
+                    return intInput;
+                } else {
+                    System.out.println(b);
+                    System.out.println("Please enter a positive number or lower");
+                    continue;
+                }
+            } catch (NumberFormatException ime) {
+                System.out.println(b);
+                System.out.println("Please type a positive number");
+            }
+        }
 
-
-    protected static void addResolvedTickets(LinkedList<Ticket> resolvedTicketsQueue) {
-        Ticket resolved = new Ticket();
-        resolvedTicketsQueue.add(resolved);
     }
 
+    public static void printResolvedTickets(LinkedList<Ticket> ticket) {
+        System.out.println("Ticket added to resolved list\n" + ticket);
+        System.out.println(" ------- All open tickets ----------");
+        System.out.println(" ------- All Resolved tickets ----------");
+        for (Ticket t: ticket)
+
+        {
+            System.out.println(t); //Write a toString method in Ticket class
+            //println will try to call toString on its argument
+        }
+
+        if (ticket.size() == 0)
+
+        {
+            System.out.println("  >>EMPTY<<");
+            System.out.println(" ------- End of Resolved ticket list ----------");
+        }
+    }
 }
+
+
+
+
+
+
+

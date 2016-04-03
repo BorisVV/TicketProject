@@ -4,11 +4,30 @@ package com.BorisV.java;
 import java.util.Date;
 import java.util.LinkedList;
 
-public class Ticket implements Comparable<Ticket>{
+public class Ticket extends LinkedList<Ticket> implements Comparable<Ticket>{
     private int priority;
     private String reporter;   //Stores person or department who reported issue
     private String description;
     private Date dateReported;
+    private Date dateOfResolution;
+    protected String resolution;
+
+    public Date getDateOfResolution() {
+        return dateOfResolution;
+    }
+
+    public void setDateOfResolution(Date dateOfResolution) {
+        this.dateOfResolution = dateOfResolution;
+    }
+
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
+    }
+
 
     //STATIC Counter - accessible to all Ticket objects.
     //If any Ticket object modifies this counter, all Ticket objects will have the modified value
@@ -29,9 +48,6 @@ public class Ticket implements Comparable<Ticket>{
         this.ticketID = staticTicketIDCounter;
         staticTicketIDCounter++;
     }
-
-    public Ticket(){}
-
 
     public int getPriority() {
         return priority;
@@ -77,8 +93,6 @@ public class Ticket implements Comparable<Ticket>{
     }
 
 
-
-
     public String toString(){
         return("ID = " + this.ticketID + "  Issue: " + this.description + "  Priority: "
                 + this.priority + "  Reported by: "
@@ -95,7 +109,7 @@ public class Ticket implements Comparable<Ticket>{
         if (tickets.size() == 0) {
             System.out.println("  >>EMPTY<<");
         }
-        System.out.println(" ------- End of ticket list ----------");
+        System.out.println(" ------- End of Open ticket list ----------");
 
     }
 
