@@ -3,6 +3,7 @@ package com.BorisV.java;
 
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Ticket extends LinkedList<Ticket> implements Comparable<Ticket>{
     private int priority;
@@ -11,6 +12,8 @@ public class Ticket extends LinkedList<Ticket> implements Comparable<Ticket>{
     private Date dateReported;
     private Date dateOfResolution;
     protected String resolution;
+
+    protected static Scanner scanner = new Scanner(System.in);
 
     public Date getDateOfResolution() {
         return dateOfResolution;
@@ -111,6 +114,11 @@ public class Ticket extends LinkedList<Ticket> implements Comparable<Ticket>{
         }
         System.out.println(" ------- End of Open ticket list ----------");
 
+    }
+
+    public static String getInput(){
+        String input = scanner.nextLine();
+        return input;
     }
 
 }

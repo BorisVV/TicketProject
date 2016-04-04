@@ -1,21 +1,29 @@
 package com.BorisV.java;
 
 
-import java.util.*;
+import java.io.*;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class TicketManager {
 
     protected static LinkedList<Ticket> allOpenTickets;
     protected static LinkedList<Ticket> resolvedTicket;
+    protected static LinkedList<Ticket> searchByNames;
     protected static Scanner scan;
 
     public static void main(String[] args) {
 
+
         allOpenTickets = new LinkedList<>();
         resolvedTicket = new LinkedList<>();
+        searchByNames = new LinkedList<>();
         scan = new Scanner(System.in);
 
         boolean quit = false;
+
+        fileReader();
+
         while (!quit) {
             try {
                 StringBuilder sb = new StringBuilder();
@@ -23,10 +31,12 @@ public class TicketManager {
                         "1. Enter Ticket\n" +
                         "2. Delete TicketByID\n" +
                         "3. Delete TicketByIssue\n" +
-                        "4. Delete TicketByName\n" +
+                        "4. Search by Name\n" +
                         "5. Display All Open Tickets\n" +
                         "6. Display All Resolved Tickets\n" +
                         "7. Quit");
+
+
                 System.out.println(sb);
 
                 int task = getPositiveIntInput(sb);
@@ -42,15 +52,17 @@ public class TicketManager {
                     //delete a ticket
                     DeleteByIssue.deleteByIssue(allOpenTickets);
                 } else if (task == 4) {
-                    //delete a ticket
-                    DeleteByName.deleteByName(allOpenTickets);
+                    //search ticket by name
+                    SearchByName.searchByName(allOpenTickets);
+//                    printSearchedByName(searchByNames);
+
                 } else if (task == 5) {
                     //Display all open tickets
 
-                    Collections.sort(allOpenTickets);
+//                    Collections.sort(allOpenTickets);
                     Ticket.printAllTickets(allOpenTickets);
                 } else if (task == 6) {
-                    TicketManager.printResolvedTickets(resolvedTicket);
+                    printResolvedTickets(resolvedTicket);
 
                 } else if (task == 7) {
                     //Quit. Future prototype may want to save all tickets to a file
@@ -93,23 +105,56 @@ public class TicketManager {
 
     }
 
-    public static void printResolvedTickets(LinkedList<Ticket> ticket) {
-        System.out.println("Ticket added to resolved list\n" + ticket);
-        System.out.println(" ------- All open tickets ----------");
-        System.out.println(" ------- All Resolved tickets ----------");
-        for (Ticket t: ticket)
 
-        {
+
+    public static void printResolvedTickets(LinkedList<Ticket> ticket) {
+        System.out.println(" ------- All Resolved tickets ----------");
+        for (Ticket t: ticket) {
             System.out.println(t); //Write a toString method in Ticket class
             //println will try to call toString on its argument
         }
 
-        if (ticket.size() == 0)
-
-        {
+        if (ticket.size() == 0) {
             System.out.println("  >>EMPTY<<");
-            System.out.println(" ------- End of Resolved ticket list ----------");
         }
+            System.out.println(" ------- End of Resolved ticket list ----------");
+    }
+
+    public static void writeResolved(LinkedList<Ticket> ticket) throws IOException {
+        FileWriter writerResolved = new FileWriter("ResolvedTic.txt");
+        writerResolved.write(String.valueOf(ticket));
+        writerResolved.close();
+
+    }
+
+    public static void printSearchedByName(LinkedList<Ticket> tickett) {
+
+        for (Ticket t: tickett) {
+            System.out.println(t); //Write a toString method in Ticket class
+            //println will try to call toString on its argument
+        }
+
+        if (tickett.size() == 0) {
+            System.out.println("  >>EMPTY<<");
+        }
+
+    }
+
+    public static void fileReader() {
+        try {
+            FileReader reader1 = new FileReader("AllOpenTickets-File.txt" != null ? new File("AllOpenTickets-File.txt") : null);
+            BufferedReader bufReader = new BufferedReader(reader1);
+
+            String line1 = bufReader.readLine();
+            while (line1 != null) {
+                System.out.println(line1);
+                line1 = bufReader.readLine();
+            }
+            reader1.close();
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
+
     }
 }
 
